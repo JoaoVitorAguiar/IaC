@@ -2,58 +2,101 @@
 
 ## DIRECTORIES
 
-DIRS=("/public" "/adm" "/ven" "/sec")
-
 # Create directories if they do not exist
-for DIR in "${DIRS[@]}"; do
-    if [ ! -d "$DIR" ]; then
-        mkdir "$DIR"
-        echo "Directory '$DIR' created."
-    else
-        echo "Directory '$DIR' already exists."
-    fi
-done
+if [ ! -d "/public" ]; then
+    mkdir "/public"
+    echo "Directory '/public' created."
+else
+    echo "Directory '/public' already exists."
+fi
+
+if [ ! -d "/adm" ]; then
+    mkdir "/adm"
+    echo "Directory '/adm' created."
+else
+    echo "Directory '/adm' already exists."
+fi
+
+if [ ! -d "/ven" ]; then
+    mkdir "/ven"
+    echo "Directory '/ven' created."
+else
+    echo "Directory '/ven' already exists."
+fi
+
+if [ ! -d "/sec" ]; then
+    mkdir "/sec"
+    echo "Directory '/sec' created."
+else
+    echo "Directory '/sec' already exists."
+fi
 
 ## GROUPS
 
-GROUPS=("GRP_ADM" "GRP_VEN" "GRP_SEC")
-
 # Create groups if they do not exist
-for GROUP in "${GROUPS[@]}"; do
-    if ! getent group "$GROUP" > /dev/null; then
-        groupadd "$GROUP"
-        echo "Group '$GROUP' created."
-    else
-        echo "Group '$GROUP' already exists."
-    fi
-done
+if ! getent group "GRP_ADM" > /dev/null; then
+    groupadd "GRP_ADM"
+    echo "Group 'GRP_ADM' created."
+else
+    echo "Group 'GRP_ADM' already exists."
+fi
+
+if ! getent group "GRP_VEN" > /dev/null; then
+    groupadd "GRP_VEN"
+    echo "Group 'GRP_VEN' created."
+else
+    echo "Group 'GRP_VEN' already exists."
+fi
+
+if ! getent group "GRP_SEC" > /dev/null; then
+    groupadd "GRP_SEC"
+    echo "Group 'GRP_SEC' created."
+else
+    echo "Group 'GRP_SEC' already exists."
+fi
 
 
 ## USERS
 
-USERS_ADM=("carlos" "maria" "joao")
-USERS_VEN=("debora" "sebastiana" "roberto")
-USERS_SEC=("josefina" "amanda" "rogerio")
-
 # Create users and add them to the appropriate groups
+useradd "carlos" -m -s /bin/bash -G GRP_ADM
+passwd -e "carlos"  
+echo "User 'carlos' created and added to group 'GRP_ADM'."
 
-for USER in "${USERS_ADM[@]}"; do
-    useradd "$USER" -m -s /bin/bash -G GRP_ADM
-    passwd -e "$USER"  
-    echo "User '$USER' created and added to group 'GRP_ADM'."
-done
+useradd "maria" -m -s /bin/bash -G GRP_ADM
+passwd -e "maria"  
+echo "User 'maria' created and added to group 'GRP_ADM'."
 
-for USER in "${USERS_VEN[@]}"; do
-    useradd "$USER" -m -s /bin/bash -G GRP_VEN
-    passwd -e "$USER"  
-    echo "User '$USER' created and added to group 'GRP_VEN'."
-done
+useradd "joao" -m -s /bin/bash -G GRP_ADM
+passwd -e "joao"  
+echo "User 'joao' created and added to group 'GRP_ADM'."
 
-for USER in "${USERS_SEC[@]}"; do
-    useradd "$USER" -m -s /bin/bash -G GRP_SEC
-    passwd -e "$USER"  
-    echo "User '$USER' created and added to group 'GRP_SEC'."
-done
+
+useradd "debora" -m -s /bin/bash -G GRP_VEN
+passwd -e "debora"  
+echo "User 'debora' created and added to group 'GRP_VEN'."
+
+useradd "sebastiana" -m -s /bin/bash -G GRP_VEN
+passwd -e "sebastiana"  
+echo "User 'sebastiana' created and added to group 'GRP_VEN'."
+
+useradd "roberto" -m -s /bin/bash -G GRP_VEN
+passwd -e "roberto"  
+echo "User 'roberto' created and added to group 'GRP_VEN'."
+
+
+useradd "josefina" -m -s /bin/bash -G GRP_SEC
+passwd -e "josefina"  
+echo "User 'josefina' created and added to group 'GRP_SEC'."
+
+useradd "amanda" -m -s /bin/bash -G GRP_SEC
+passwd -e "amanda"  
+echo "User 'amanda' created and added to group 'GRP_SEC'."
+
+useradd "rogerio" -m -s /bin/bash -G GRP_SEC
+passwd -e "rogerio"  
+echo "User 'rogerio' created and added to group 'GRP_SEC'."
+
 
 echo "All users were created and added to their respective groups!"
 echo "Each user will be prompted to change their password on the first login."
