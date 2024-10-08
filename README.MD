@@ -1,81 +1,41 @@
-# Projeto de Gerenciamento de Diretórios e Usuários
+# Desafio: Provisionamento Automático de Servidor Web
 
-Este projeto é um script em Bash que automatiza a criação de diretórios, grupos e usuários em um sistema Linux. O script garante que as permissões estejam configuradas corretamente para cada diretório e grupo, permitindo que os usuários acessem apenas seus respectivos diretórios.
+Neste projeto, implementamos um script para provisionar automaticamente um servidor web utilizando um servidor Apache. O script realiza a instalação de pacotes necessários, configura o servidor, baixa uma aplicação e faz o deploy em um diretório apropriado. Este projeto faz parte de um desafio prático para colocar em prática conceitos de automação e provisionamento de servidores.
 
-## Índice
+## Funcionalidades
 
-- [Requisitos](#requisitos)
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Verificação de Resultados](#verificação-de-resultados)
+O script realiza as seguintes ações:
 
-## Requisitos
+1. **Atualização do servidor**: Usa `apt-get` para atualizar e fazer o upgrade dos pacotes do sistema.
+2. **Instalação de pacotes**: Instala o servidor Apache e o utilitário `unzip`.
+3. **Download da aplicação**: Baixa um arquivo `.zip` contendo a aplicação diretamente do GitHub.
+4. **Descompactação da aplicação**: Usa o `unzip` para extrair os arquivos da aplicação.
+5. **Deploy da aplicação**: Copia os arquivos extraídos para o diretório padrão do Apache, permitindo que o conteúdo seja acessado via navegador.
+6. **Reinicialização do Apache**: Reinicia o servidor Apache para garantir que as alterações entrem em vigor.
 
-Antes de executar o script, você precisará ter:
+## Como Executar
 
-- Um sistema Linux (Ubuntu, CentOS, etc.)
-- Acesso root ou permissões de sudo
-- Git instalado
+### Pré-requisitos
 
-## Instalação
+- **Linux**: O script foi desenvolvido para sistemas baseados em Linux.
+- **Permissões de superusuário**: O script requer permissões elevadas para instalar pacotes e modificar o diretório do Apache.
 
-1. **Clone o repositório:**
+### Passo a Passo
 
-   Abra o terminal e execute o seguinte comando:
+1. Clone este repositório ou crie um novo repositório no GitHub com o script.
 
    ```bash
    git clone https://github.com/JoaoVitorAguiar/IaC.git
    ```
 
-2. **Navegue até o diretório do repositório:**
+2. Execute o script com permissões de superusuário.
 
    ```bash
-   cd IaC
+   sudo ./deploy_web_server.sh
    ```
 
-3. **Dê permissão de execução ao script:**
+3. Acesse o endereço IP do servidor ou `localhost` para visualizar a aplicação em execução:
 
-   ```bash
-   chmod +x setup.sh
    ```
-
-## Uso
-
-Para executar o script, você precisará de permissões de superusuário. Execute o seguinte comando:
-
-```bash
-sudo ./setup.sh
-```
-
-O script criará os seguintes diretórios:
-
-- `/public`
-- `/adm`
-- `/ven`
-- `/sec`
-
-Além disso, os grupos e usuários serão criados conforme as definições no script. Cada usuário será solicitado a mudar sua senha no primeiro login.
-
-## Verificação de Resultados
-
-Após a execução do script, você pode verificar se tudo foi criado corretamente usando os seguintes comandos:
-
-- **Verifique os diretórios:**
-
-  ```bash
-  ls -l /public /adm /ven /sec
-  ```
-
-- **Verifique os grupos:**
-
-  ```bash
-  getent group GRP_ADM
-  getent group GRP_VEN
-  getent group GRP_SEC
-  ```
-
-- **Verifique os usuários:**
-
-  ```bash
-  getent passwd
-  ```
+   http://localhost
+   ```
