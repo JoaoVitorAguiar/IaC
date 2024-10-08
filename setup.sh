@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+## iac 01
+
 ## DIRECTORIES
 
 # Create directories if they do not exist
